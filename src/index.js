@@ -3,9 +3,8 @@ import { chromium } from 'playwright';
 // Clase Proveedor
 const Proveedores = [{
     nombre: 'Amazon',
-    buscar: async ({browser, url, producto}) => {
+    buscar: async ({page, url, producto}) => {
         // Open the page
-        const page = await browser.newPage();
         await page.goto(url);
 
         // Fill the search input
@@ -33,8 +32,21 @@ const Proveedores = [{
         // Iterate over the products titles
         for (let i = 0; i < numero; i++) {
             const titulo = await titulos.locator('h2').nth(i);
+            const link = await titulos.locator('h2 a').nth(i).getAttribute('href');
             const nombre = await titulo.innerText();
-            productsList.push(nombre);
+            await page.goto("https://www.amazon.com" + link);
+            await page.waitForTimeout(1000);
+            const precio = await page.evaluate(() => {
+                const element = document.querySelector('.a-price[data-a-size=xl]');
+                if (!element) {
+                    return "No disponible";
+                }
+                const dinero = element.innerText;
+                const elementos = dinero.split('.');
+                return elementos[0];
+            });
+            await page.goBack();
+            productsList.push({Nombre_Producto: nombre, link: `https://www.amazon.com${link}` , precio: precio});
         }
         return productsList;
     }
@@ -44,33 +56,32 @@ const Proveedores = [{
 (async () => {
     // Launch the browser
     const browser = await chromium.launch(
-        // Descomentar para ver la ejecución del navegador y eliminar el capcha
+        // Graba un video de la prueba
         // {
-        // headless: false,
-        // slowMo: 50
+        //     recordVideo: {
+        //         dir: '../pruebas'
+        //     }
         // }
+        // Mira lo que hace el navegador
+        //  headless: false,
+        //  slowMo: 50
     );
-    
+    const page = await browser.newPage();
     // Search the product in all the providers
     const productos = await Promise.all(
         Proveedores.map(proveedor => 
             proveedor.buscar({
-                browser,
+                page,
                 url:'https://www.amazon.com/-/es/',
                 producto:'ram 32gb ddr5'
             }
         ))
     );
 
-    // Show the products
-    console.log("Mis alternativas de AMAZON son las siguientes: ");
-    productos.forEach((producto, index) => {
-        console.log(`Proveedor: ${Proveedores[index].nombre}`);
-        producto.forEach((nombre, index) => {
-            console.log(`Producto ${index + 1}: ${nombre}`);
-        });
-    });
+    // Print the products
+    console.log(productos);
 
-    // Close the browser
+    // Close the browser and page
+    await page.close();
     await browser.close();
 })();
