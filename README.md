@@ -2,13 +2,13 @@
 
 Este proyecto es un web scraper diseñado para buscar productos tecnológicos en Amazon. Utiliza técnicas de scraping para recopilar información sobre los productos y generar informes detallados.
 
+<img align="center" alt="Json response" src="https://res.cloudinary.com/dmbtlv0hg/image/upload/v1715122436/samples/people/prueba_n6kwk2.png">
+
 ## Funcionalidades
 
 - **Búsqueda de Productos**: El scraper puede buscar productos tecnológicos en Amazon utilizando diferentes criterios de búsqueda, como palabras clave, categorías o marcas específicas.
   
 - **Recopilación de Datos**: Extrae información detallada sobre los productos, incluyendo el nombre, el precio, la descripción, las valoraciones de los clientes y más.
-
-- **Generación de Informes**: Genera informes en formato CSV o Excel que contienen los datos recopilados sobre los productos encontrados en Amazon. (Pendiente)
 
 ## Próximos Pasos
 
@@ -17,6 +17,8 @@ Este proyecto es un web scraper diseñado para buscar productos tecnológicos en
 - **Deploy en Azure**: Para el deploy y uso automatizado de ciertos productos, se necesitará su deploy con el uso de Azure Functions.
 
 - **OAuth verificación**: Para su uso se debe de implementar la necesidad de la creación de un token.
+
+- **Generación de Informes**: Genera informes en formato CSV o Excel que contienen los datos recopilados sobre los productos encontrados en Amazon.
 
 ## Uso
 
