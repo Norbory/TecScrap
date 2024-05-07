@@ -16,7 +16,7 @@ Este proyecto es un web scraper diseñado para buscar productos tecnológicos en
 
 - **Deploy en Azure**: Para el deploy y uso automatizado de ciertos productos, se necesitará su deploy con el uso de Azure Functions.
 
--**OAuth verificación**: Para su uso se debe de implementar la necesidad de la creación de un token.
+- **OAuth verificación**: Para su uso se debe de implementar la necesidad de la creación de un token.
 
 ## Uso
 
