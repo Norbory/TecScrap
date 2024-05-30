@@ -1,4 +1,4 @@
-# Amazon Tech Product Scraper
+# Amazon Tech Product Scraper - Rama Oliver
 
 Este proyecto es un web scraper diseñado para buscar productos tecnológicos en Amazon. Utiliza técnicas de scraping para recopilar información sobre los productos y generar informes detallados.
 
@@ -36,6 +36,10 @@ Este proyecto es un web scraper diseñado para buscar productos tecnológicos en
 
     ```bash
     npm start
+
+4. En caso no se instalará muy bien la dependencia de playwright:
+   ```bash
+    npx playwright install
 
 ## Contribuciones
 
