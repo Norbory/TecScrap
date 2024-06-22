@@ -1,18 +1,15 @@
-import { chromium } from 'playwright';
+const { chromium } = require ('playwright');
 
 (async () => {
-    const browser = await chromium.launch(
-        // Mira lo que hace el navegador
-        {headless: false,
-        slowMo: 50}
-    )
+    const browser = await chromium.launch({
+        headless: false,
+        slowMo: 50,
+    })
     const page = await browser.newPage();
-    // Open the page
-    await page.goto("https://busquedas.elperuano.pe/");
-    // Wait for the page to load
-    await page.waitForTimeout(1000);
-    
-    console.log(numero);
+    await page.goto("https://busquedas.elperuano.pe/?start=0&fechaIni=20240620&tipoDispositivo=&entidad=2071&tipoPublicacion=NL");
+    await page.waitForTimeout(2000);
+    const contador = await page.locator('main .mt-4');
+    console.log(contador.innerText());
 
 
     // Close the browser and page
