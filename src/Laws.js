@@ -1,29 +1,38 @@
 const app = require('./index.js');
 const { port } = require('./config');
-const { json } = require('express');
-
+const { chromium } = require('playwright');
 app.listen(port,() => {
     console.log(`Server running on port ${port || 3000}`)
 });
 
 app.get('/api/search', async (req, res) => {
     try{
-        const day = new Date().toLocaleDateString();
-        const formatDay = day.slice(5,9) + 0 + day.slice(3,4) + day.slice(0,2);
-        console.log(formatDay);
-        return json(formatDay);
-        
+        const data = await fetchData({});
+        return res.json(data);
     }catch(err){
         console.log(err);
         res.status(500).json({message: "Internal Server Error"});
     }
-})
+});
 
-const fetchData = async ({formatDay}) => {
-    ;(async () => {
+app.post('/api/search', async (req, res) => {
+    try{
+        const {formatDay,entidad} = req.body;
+        const data = await fetchData({formatDay,entidad});
+        return res.json(data);
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: "Internal Server Error"});
+    }
+});
+
+const fetchData = async ({fechaIni, fechaFin, entidad}) => {
+    const day = new Date().toLocaleDateString();
+    const diaHoy = day.slice(5,9) + 0 + day.slice(3,4) + day.slice(0,2);
+    const data = (async () => {
         const browser = await chromium.launch();
         const page = await browser.newPage();
-        await page.goto(`https://busquedas.elperuano.pe/?start=0&fechaIni=${formatDay}&fechaFin=${formatDay}&tipoDispositivo=&entidad=2071&tipoPublicacion=NL`);
+        await page.goto(`https://busquedas.elperuano.pe/?start=0&fechaIni=${fechaIni ?? diaHoy}&fechaFin=${fechaFin ?? diaHoy}&tipoDispositivo=&entidad=${entidad ?? ""}&tipoPublicacion=NL`);
         await page.waitForTimeout(2000);
     
         let totalHits = "";
@@ -75,8 +84,9 @@ const fetchData = async ({formatDay}) => {
         }
         await page.close();
         await browser.close();
+        return {totalHits,infoLaws};
     })();
-    return {totalHits,infoLaws};
+    return data;
 }
 
 // ;(async () => {
@@ -135,4 +145,5 @@ const fetchData = async ({formatDay}) => {
 
 //     await page.close();
 //     await browser.close();
+//     console.log({totalHits,infoLaws});
 // })();
