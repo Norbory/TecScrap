@@ -1,0 +1,39 @@
+Estructura de urls El peruano
+Base Host: 'https://busquedas.elperuano.pe/'
+Separator: '&'
+
+// Tipos de dispositivos
+'tipoDispositivo='
+
+// Entidades
+'entidad='
+Academia de la magistratura:2092
+Agencia de compras de las fuerzas armadas:9086
+Agencia de promocion de la inversion privada:2087
+Agencia de promocion de la inversion privada:9256
+Agencia peruana de cooperacion internacional:2102
+Agricultura y Riego:9112
+-Ambiente:8879
+-Comisión de Promoción del Perú para la Exportación y el Turismo:2035 y 9125
+-PRODUCE:2082
+-Ministerio de Desarrollo Agrario y Riego:9360
+-Ministerio de Energía y Minas:2071
+-Ministerio de Trabajo y Promoción del Empleo:2076
+Ministerio de Transportes y Comunicaciones:2079
+-Ministerio de Vivienda, Construcción y Saneamiento:2081
+
+// Tipo de publicacion
+'tipoPublicacion=NL'
+NL es Normas Legales
+// Sin ninguna elegida quedaria solo los parametro de tipo de publicaciones sin ninguna selecciona
+// y la fecha
+
+// Fechas
+// Solo una
+'?fechaIni=20240620'
+// Rango
+'?fechaIni=20240620&fechaFin=20240622'
+// Sin Parametro
+'?start=0'
+
+
